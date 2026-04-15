@@ -11,7 +11,18 @@ app = Flask(__name__)
 # MODEL CONFIG
 # -----------------------------
 MODEL_PATH = "model/skin_model.h5"
-MODEL_URL = "https://drive.google.com/uc?id=1bqwEkTMcJODBNfsUpAsdDDM3PFYaszYY"
+MODEL_URL = "https://drive.google.com/uc?export=download&id=1bqwEkTMcJODBNfsUpAsdDDM3PFYaszYY"
+
+os.makedirs("model", exist_ok=True)
+
+# Download model if not exists
+if not os.path.exists(MODEL_PATH):
+    try:
+        print("Downloading model...")
+        gdown.download(MODEL_URL, MODEL_PATH, quiet=False)
+        print("Download complete")
+    except Exception as e:
+        print("Download failed:", e)
 
 # -----------------------------
 # DOWNLOAD MODEL (SAFE)
